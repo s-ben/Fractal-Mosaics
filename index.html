@@ -30,7 +30,7 @@
 
       </header>
       <section>
-        <p>[UNDER CONSTRUCTION]</p>
+        <h1>[UNDER CONSTRUCTION]</h1>
 
 <h1>Abstract</h1>
 
@@ -114,6 +114,62 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 <p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/log_general_equation.gif?login=s-ben&amp;token=daccda0e863fce8c925880b950d70545" alt="equation"></p>
 
 <p>Assuming we scale an image up by a factor of 3, in the polar space, this is equivalent to multiplying the radius values by 3.</p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/polar_scaling_eq.gif?login=s-ben&amp;token=20de8f9d649563130ea241a3573fd5b6" alt="equation"></p>
+
+<p>If we apply the log function to the radius values (i.e. the log-polar transform),</p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/log_polar_scale_eq.gif?login=s-ben&amp;token=cc3546e0e40606f5ffbcff3586f42c92" alt="equation"></p>
+
+<p>Scale now manifests as a scalar phase shift (log(3)) in the radius axis (i.e. x-axis).  Rotation still manifests as a phase shift in the angle axis (i.e. y-axis), as it did in the straight polar transform Section.  We can now recover both scale and rotation from the cross-correlation of the log-polar transformed images!  Magic!</p>
+
+<p>Figure 4 shows a crop of the Lincoln image (a), the Lincoln image rotated by 45 deg and scaled up by a factor of 2 (c), and the log-polar transforms of both ((b) and (d)).  </p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/LogPolar_transform_500pix.png?login=s-ben&amp;token=e72f28a8e8855f7484d116120e03fe1b" alt="Alt text"></p>
+
+<p>As can be seen, the 45 deg rotation shows up as a circular shift along the x-axis (i.e. angle axis) and the 2X scaling shows up as a phase shift along the y-axis (i.e. angle axis).</p>
+
+<h3>Rotation and Scale Estimation</h3>
+
+<p>To estimate rotation and scale, we take the cross-correlation of the log-polar transformed images ((b) and (d) in Figure 4).  The maximum of the cross-correlation (dark red peak) corresponds to rotation and scale (equations for calculating rotation and scale from peak can be found in the code).</p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/Lincoln_cc.png?login=s-ben&amp;token=22024bc7d3e71e2a15e9fb2d16e9e80b" alt="Alt text"></p>
+
+<p>For computational efficiency, the cross-correlation is computed in the Fourier domain using 2D FFTs,</p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/cc_eq.gif?login=s-ben&amp;token=dac60d00b66a927d84272a207994b202" alt="equation"></p>
+
+<p>where L1 and L2 are the log-polar transformed library and target images, respectively.</p>
+
+<h3>Recovering Translation</h3>
+
+<p>As mentioned previously, Log-polar registration does not recover translation.  It assumes the two images presented to it line up, except for rotation and scale differences.  To recover translation, the algorithm must be applied to every location (pixel).  The translation resulting in the best match (i.e. lowest rms error) is then chosen as the translation estimate.  This makes log-polar registration fairly computationally expensive compared to other registration techniques.</p>
+
+<p>To reduce computation, the authors of log-polar registration implement a coarse-to-fine multi-resolution framework, whereby estimates computed in lower resolution images are used as initial guesses in higher resolution images.  This framework was tweaked in several places to apply it to Fractal Mosaics, as outlined below in the ‘Image Registration Algorithm Steps’ section.</p>
+
+<h3>Image Registration Algorithm Steps</h3>
+
+<ol>
+<li>Create low resolution versions of target image</li>
+</ol><p>For each “level” (levels are explained shortly), we require five different resolutions of the target image.</p>
+
+<p>First, we create the lowest resolution version of the target image.  Because 8x8 images were found (in this author’s experiments), to be the lowest resolution images capable of producing meaningful rotation and scale estimates, the lowest resolution target image is composed of 8x8 images, or “tiles”.   For example, Figure 6 shows a target image of Abraham Lincoln at full resolution (3072 x 2606 pixels), and an 8x8 resolution version (24x20 pixels).</p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/Lincoln_8x8_crop_illustrate.png?login=s-ben&amp;token=f402b26d3651f713d3009bd7159b4722" alt="Alt text"></p>
+
+<p>Note that the low resolution version is three 8x8 “tiles” high.  In other words, the largest possible images in the final mosaic will be approximately 1/3 of the mosaic height.  This is a reasonable assumption, as we’re very unlikely to find a random library image that exactly matches more than a third of the target image.</p>
+
+<p>Next, we create the intervening resolutions. These resolutions are powers of two derived from the 8x8 image, up to 128x128.  I.e., we have an 8x8 resolution image, as shown in Figure 6, a 16x16 resolution image which is four times the size of the 8x8 resolution image, a 32x32 resolution image which is four times the size of the 8x8 image, and so on, down to 128x128.  128x128 is the highest resolution we perform image registration on because higher resolutions do not produce meaningful refinements of scale and rotation and are therefore a waste of computation.  The original library images (used to render the final mosaic) are 256x256 pixels.</p>
+
+<p>Note that while black and white images are used in this example, the same math applies to color.  The same steps are simply applied to each color channel (R,G,B) in parallel.</p>
+
+<ol>
+<li>Perform Log-polar registration on each pixel</li>
+</ol><p>Since Fractal Mosaics doesn’t perform “wrapping” of pixels on the boundary of the target image, we only evaluate pixels in the “valid pixel area” (red box in Figure 7).</p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/Lincoln_8x8_valid_pixel_area.png?login=s-ben&amp;token=caf1d7368f18245b1e7904770de7925b" alt="Alt text"></p>
+
+<p>For each location (x,y) in the valid pixel area, we perform the following steps:</p>
 
 <h3>Welcome to GitHub Pages.</h3>
 
