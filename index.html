@@ -1,37 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Fractal-mosaics : Photomosaics 3.0" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Fractal-mosaics by s-ben</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Fractal-mosaics</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Fractal-mosaics</h1>
+        <p class="header">Photomosaics 3.0</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/s-ben/Fractal-Mosaics">View on GitHub</a>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/s-ben/Fractal-Mosaics/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/s-ben/Fractal-Mosaics/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/s-ben/Fractal-Mosaics">View On GitHub</a></li>
+        </ul>
 
-          <h1 id="project_title">Fractal-mosaics</h1>
-          <h2 id="project_tagline">Photomosaics 3.0</h2>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/s-ben">s-ben</a></p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/s-ben/Fractal-Mosaics/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/s-ben/Fractal-Mosaics/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>Abstract</h1>
+      </header>
+      <section>
+        <p>[UNDER CONSTRUCTION]</p>
+
+<h1>Abstract</h1>
 
 <p>The Fractal Mosaic algorithm is a rotation, scale, and translation invariant photomosaic algorithm.  While traditional photomosaics create a larger image out of smaller square images on a rectangular grid, Fractal Mosaics creates a larger image out of rectangular images that can be placed at arbitrary locations, can be scaled to any size, and can be rotated by any angle.  </p>
 
@@ -42,7 +43,7 @@ Figure 1:  Fractal Mosaic created with graffiti image set (best viewed <a href="
 
 <p>Figure 2 shows three traditional photomosaics created using the same image set and target image.  </p>
 
-<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/Polar_transform_500pix.png?login=s-ben&amp;token=2297c64c8a54efd5b9fe4e7f3a62f311" alt="Alt text">
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/traditional_mosaic_different_resolutions_800pix.png?login=s-ben&amp;token=5dc052c2ee602a1b7bfd08d525e9d00a" alt="Alt text">
 Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles (middle), and small tiles (right)</p>
 
 <p>As can be seen, using large tiles (left), finer details are lost.  Using small tiles (right), we capture target image details, but can’t see individual image detail.  Using medium size tiles (middle), we get a compromise between the two.  Fractal Mosaics aims to create mosaics that capture both target image details and individual image details, in an aesthetically interesting way.</p>
@@ -92,11 +93,27 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <h3>Polar Coordinates</h3>
 
-<p>To understand Log-polar registration, we briefly review polar coordinates.  </p>
+<p>To understand Log-polar registration, we briefly review <a href="http://en.wikipedia.org/wiki/Polar_coordinate_system">polar coordinates</a>.  </p>
 
 <p>When transforming from Cartesian to polar coordinates, each pixel location (x,y) is represented as a radius and angle (r,a), where r is the distance from the center of the image (xc,yc), and a is the angle in degrees from the x-axis.</p>
 
-<p><img src="http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A" alt="equation"></p>
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/radius_eq_polar.gif?login=s-ben&amp;token=05e5efcd7cad361572bbf941f86ad1f2" alt="equation"></p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/angle_equation_polar.gif?login=s-ben&amp;token=ee4778d991bfe42ea68e377ed9c59f5f" alt="equation"></p>
+
+<p>Figure 3 illustrates the polar transform using an image of Abraham Lincoln.  Here we see a crop of the Lincoln image (a), the Lincoln image rotated by 90 deg (c), and the log-polar transforms of both ((b) and (d)).</p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/Polar_transform_500pix.png?login=s-ben&amp;token=2297c64c8a54efd5b9fe4e7f3a62f311" alt="Alt text"></p>
+
+<p>As can be seen, in the polar space, the 90 degree rotation manifests as a circular shift along the x-axis of the polar image (i.e. the angle axis).  If we take the cross-correlation of the polar transformed images ((b) and (d)), the maximum of the cross-correlation gives us the rotation.  However, scale cannot be recovered from the cross-correlation.</p>
+
+<h3>Log-polar Transform</h3>
+
+<p>Here’s where we take advantage of some math magic.  According to the product rule of logarithms,  </p>
+
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/log_general_equation.gif?login=s-ben&amp;token=daccda0e863fce8c925880b950d70545" alt="equation"></p>
+
+<p>Assuming we scale an image up by a factor of 3, in the polar space, this is equivalent to multiplying the radius values by 3.</p>
 
 <h3>Welcome to GitHub Pages.</h3>
 
@@ -125,17 +142,11 @@ $ git checkout gh-pages
 
 <p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Fractal-mosaics maintained by <a href="https://github.com/s-ben">s-ben</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-
-    
-
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
