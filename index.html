@@ -1,35 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Fractal-mosaics by s-ben</title>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Fractal-mosaics : Photomosaics 3.0" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Fractal-mosaics</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Fractal-mosaics</h1>
-        <p class="header">Photomosaics 3.0</p>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/s-ben/Fractal-Mosaics/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/s-ben/Fractal-Mosaics/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/s-ben/Fractal-Mosaics">View On GitHub</a></li>
-        </ul>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/s-ben/Fractal-Mosaics">View on GitHub</a>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/s-ben">s-ben</a></p>
+          <h1 id="project_title">Fractal-mosaics</h1>
+          <h2 id="project_tagline">Photomosaics 3.0</h2>
 
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/s-ben/Fractal-Mosaics/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/s-ben/Fractal-Mosaics/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
-      </header>
-      <section>
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
         <h1>Abstract</h1>
 
 <p>The Fractal Mosaic algorithm is a rotation, scale, and translation invariant photomosaic algorithm.  While traditional photomosaics create a larger image out of smaller square images on a rectangular grid, Fractal Mosaics creates a larger image out of rectangular images that can be placed at arbitrary locations, can be scaled to any size, and can be rotated by any angle.  </p>
@@ -81,10 +82,21 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <p>After an initial survey of the image registration literature, a frequency domain image registration algorithm was evaluated; specifically, Fourier-Mellin-based image registration, as implemented in this <a href="http://www.mathworks.com/matlabcentral/fileexchange/3000-fourier-mellin-based-image-registration-with-gui">Matlab code</a>.  This would have been much more computationally efficient than the spatial domain algorithm eventually chosen, as rotation, scale, and translation are efficiently recovered in one step.  However, this technique proved not robust enough for the photomosaic application.  This is likely because it relies more heavily on the assumption made by all image registration algorithms: that the two images being matched are of the same object/scene.  In photomosaics however, we are matching parts of the target image to random library images.  The assumption that the library images are rotated, scaled, and translated versions of the target image is weak.  </p>
 
-<p>An image registration algorithm that operates in the spatial domain was tried; specifically, the “Log-polar registration” algorithm found in the paper “Robust Image Registration Using Log-Polar Transform” (<a href="http://www.researchgate.net/publication/2830220_Robust_Image_Registration_Using_Log-Polar_Transform/file/d912f51116dedc8a30.pdf">pdf</a>.  This algorithm proved very robust.  And most importantly, it met the main aesthetic criteria: for any two images presented to the algorithm, no matter how dissimilar, it aligned them the way a human would.  To test this claim out for yourself, below is a video showing the algorithm at work matching library images to a target image. </p>
+<p>An image registration algorithm that operates in the spatial domain was tried; specifically, the “Log-polar registration” algorithm found in the paper “Robust Image Registration Using Log-Polar Transform” (<a href="http://www.researchgate.net/publication/2830220_Robust_Image_Registration_Using_Log-Polar_Transform/file/d912f51116dedc8a30.pdf">pdf</a>.  This algorithm proved very robust.  And most importantly, it met the main aesthetic criteria: for any two images presented to the algorithm, no matter how dissimilar, it aligned them the way a human would.  To test this claim out for yourself, check out this <a href="http://www.youtube.com/watch?v=fw7deJSLVE4">video showing the algorithm at work</a> matching library images to a target image. </p>
 
+<p>The downside to Log-polar registration is increased computation.  Because Log-polar registration only recovers rotation and scale, to recover translation, it must be applied to every location (pixel) in the target image. The location resulting in the lowest rms error is then chosen as the estimate.  This creates a lot of extra computation.  To mitigate this, the authors of the algorithm use a coarse-to-fine multi-resolution framework, whereby estimates computed in lower resolution images are used as initial guesses in higher resolution images.  The following section details the implementation of Log-polar registration in Fractal Mosaics, which deviates somewhat from the implementation presented in the paper.  </p>
 
+<h2>Log Polar Image Registration</h2>
 
+<p>In “Robust Image Registration Using Log-Polar Transform”, the authors lay out a “two module” approach.  First, a “Log-polar registration” module estimates rotation, scale, and translation.  Then, a second module uses a nonlinear least squares optimization method to refine this estimation and obtain sub-pixel accuracy.  Since Fractal Mosacis does not require sub-pixel accuracy, and the log polar registration module was found to be accurate enough for this application, just the log-polar registration module is implemented.</p>
+
+<h3>Polar Coordinates</h3>
+
+<p>To understand Log-polar registration, we briefly review polar coordinates.  </p>
+
+<p>When transforming from Cartesian to polar coordinates, each pixel location (x,y) is represented as a radius and angle (r,a), where r is the distance from the center of the image (xc,yc), and a is the angle in degrees from the x-axis.</p>
+
+<p><img src="http://latex.codecogs.com/gif.latex?1%2Bsin%28mc%5E2%29%0D%0A" alt="equation"></p>
 
 <h3>Welcome to GitHub Pages.</h3>
 
@@ -113,11 +125,17 @@ $ git checkout gh-pages
 
 <p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Fractal-mosaics maintained by <a href="https://github.com/s-ben">s-ben</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
+
+    
+
   </body>
 </html>
