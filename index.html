@@ -46,15 +46,15 @@
 <p align="center"><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/eye_mosaic_flickr_800pix.jpg?login=s-ben&amp;token=d045d2a20e53d9009700d6829157669f" alt="Alt text">
 Figure 1:  Fractal Mosaic created with graffiti image set (best viewed <a href="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/eye_mosaic_flickr_large.jpg?login=s-ben&amp;token=87b09134a5f66d314547e419299a65b7">large</a>)</p>
 
-<p>For more Fractal Mosaics, check out my <a href="http://www.flickr.com/photos/travelingseth/sets/72157623789223762/">Flickr page</a>.</p>
-<p>Figure 2 shows three traditional photomosaics created with <a href="http://www.andreaplanet.com/andreamosaic/">AndreaMosaic </a>using the same image set and target image.  </p>
+<p>For more Fractal Mosaics, check out my <a href="http://www.flickr.com/photos/travelingseth/sets/72157623789223762/" target="_blank">Flickr page</a>.</p>
+<p>Figure 2 shows three traditional photomosaics created with <a href="http://www.andreaplanet.com/andreamosaic/" target="_blank">AndreaMosaic </a>using the same image set and target image.  </p>
 
 <p align="center"><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/traditional_mosaic_different_resolutions_800pix.png?login=s-ben&amp;token=5dc052c2ee602a1b7bfd08d525e9d00a" alt="Alt text">
 Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles (middle), and small tiles (right)</p>
 
 <p>As can be seen, using large tiles (left), finer details are lost.  Using small tiles (right), we capture target image details, but can’t see individual image detail.  Using medium size tiles (middle), we get a compromise between the two.  Fractal Mosaics aims to create mosaics that capture both target image details and individual image details, in an aesthetically interesting way.</p>
 
-<p>Many people have, of course, created photomosaic variants with similar aims.  Too many to list here.  Some of my favorite photomosaic pioneers that I’m aware of: <a href="http://www.flickr.com/photos/tsevis/sets/72157594536252686/">Tsevis</a>, <a href="http://www.flickr.com/photos/village9991/sets/72157603327275992/">Village9991</a>, and <a href="http://www.flickr.com/photos/stellame/">StellaMe</a>.  If I’m unaware of your work, contact me!</p>
+<p>Many people have, of course, created photomosaic variants with similar aims.  Too many to list here.  Some of my favorite photomosaic pioneers that I’m aware of: <a href="http://www.flickr.com/photos/tsevis/sets/72157594536252686/" target="_blank">Tsevis</a>, <a href="http://www.flickr.com/photos/village9991/sets/72157603327275992/" target="_blank">Village9991</a>, and <a href="http://www.flickr.com/photos/stellame/" target="_blank">StellaMe</a>.  If I’m unaware of your work, contact me!</p>
 
 <p>By allowing for arbitrary placement, rotation, and scaling of the “library images” (images making up the mosaic), there are an many more possible matches to evaluate.  This allows for larger, often more aesthetically interesting matches than possible with traditional photomosaics.  However, searching such a large solution space on a personal computer presents a challenging problem.  This “paper” presents my solution to this problem (two years worth of unpaid work...).  It explains the algorithm in depth for those wishing to hack the Matlab code.  It should also aid those using the code to create mosaics, as understanding how the algorithm works will help tweak parameters that shape mosaic output.</p>
 
@@ -89,10 +89,10 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <h2>Registration Algorithm Choice</h2>
 
-<p>After an initial survey of the image registration literature, a frequency domain image registration algorithm was evaluated; specifically, Fourier-Mellin-based image registration, as implemented in this <a href="http://www.mathworks.com/matlabcentral/fileexchange/3000-fourier-mellin-based-image-registration-with-gui">Matlab code</a>.  This would have been much more computationally efficient than the spatial domain algorithm eventually chosen, as rotation, scale, and translation are efficiently recovered in one step.  However, this technique proved not robust enough for the photomosaic application.  This is likely because it relies more heavily on the assumption made by all image registration algorithms: that the two images being matched are of the same object/scene.  In photomosaics however, we are matching parts of the target image to random library images.  The assumption that the library images are rotated, scaled, and translated versions of the target image is weak.  </p>
+<p>After an initial survey of the image registration literature, a frequency domain image registration algorithm was evaluated; specifically, Fourier-Mellin-based image registration, as implemented in this <a href="http://www.mathworks.com/matlabcentral/fileexchange/3000-fourier-mellin-based-image-registration-with-gui" target="_blank">Matlab code</a>.  This would have been much more computationally efficient than the spatial domain algorithm eventually chosen, as rotation, scale, and translation are efficiently recovered in one step.  However, this technique proved not robust enough for the photomosaic application.  This is likely because it relies more heavily on the assumption made by all image registration algorithms: that the two images being matched are of the same object/scene.  In photomosaics however, we are matching parts of the target image to random library images.  The assumption that the library images are rotated, scaled, and translated versions of the target image is weak.  </p>
 
 <p>An image registration algorithm that operates in the spatial domain was tried; specifically, the “Log-polar registration” algorithm found in the paper “Robust Image Registration Using Log-Polar Transform” (<a href="http://www.researchgate.net/publication/2830220_Robust_Image_Registration_Using_Log-Polar_Transform/file/d912f51116dedc8a30.pdf">pdf</a>).  This algorithm proved very robust.  And most importantly, it met the main aesthetic criteria: for any two images presented to the algorithm, no matter how dissimilar, it aligned them the way a human would.  To test this claim out for yourself, check out the video below showing the algorithm at work matching library images to a target image. </p>
-<p align="center"><img src="images/video_screenshot_200rms_500pix.png" width="500" height="427" longdesc="http://www.youtube.com/watch?v=fw7deJSLVE4"></p>
+<p align="center"><a href="http://www.youtube.com/watch?v=fw7deJSLVE4" target="new"><img src="images/video_screenshot_200rms_500pix.png" width="500" height="427" longdesc="http://www.youtube.com/watch?v=fw7deJSLVE4"></a></p>
 
 <p>The downside to Log-polar registration is increased computation.  Because Log-polar registration only recovers rotation and scale, to recover translation, it must be applied to every location (pixel) in the target image. The location resulting in the lowest rms error is then chosen as the estimate.  This creates a lot of extra computation.  To mitigate this, the authors of the algorithm use a coarse-to-fine multi-resolution framework, whereby estimates computed in lower resolution images are used as initial guesses in higher resolution images.  The following section details the implementation of Log-polar registration in Fractal Mosaics, which deviates somewhat from the original implementation.  </p>
 
@@ -102,7 +102,7 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <h3>Polar Coordinates</h3>
 
-<p>To understand Log-polar registration, we briefly review <a href="http://en.wikipedia.org/wiki/Polar_coordinate_system">polar coordinates</a>.  </p>
+<p>To understand Log-polar registration, we briefly review <a href="http://en.wikipedia.org/wiki/Polar_coordinate_system" target="_blank">polar coordinates</a>.  </p>
 
 <p>When transforming from Cartesian to polar coordinates, each pixel location (x,y) is represented as a radius and angle (r,a), where r is the distance from the center of the image (xc,yc), and a is the angle in degrees from the x-axis.</p>
 
@@ -158,10 +158,12 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 <p>As mentioned previously, Log-polar registration does not recover translation.  It assumes the two images presented to it line up, except for rotation and scale differences.  To recover translation, the algorithm must be applied to every location (pixel).  The translation resulting in the best match (i.e. lowest rms error) is then chosen as the translation estimate.  This makes log-polar registration fairly computationally expensive compared to other registration techniques.</p>
 
 <p>To reduce computation, the authors of log-polar registration implement a coarse-to-fine multi-resolution framework, whereby estimates computed in lower resolution images are used as initial guesses in higher resolution images.  This framework was tweaked in several places to apply it to Fractal Mosaics, as outlined below in the ‘Image Registration Algorithm Steps’ section.</p>
+<p align="center"><a href="http://www.youtube.com/watch?v=oGCi5TPagJo" target="_blank"><img src="images/video_screenshot_30rms_500pix.png" width="500" height="447"></a></p>
+<p>&nbsp;</p>
 
 <h1><a id="image_search"></a>Image Search (Retrieval) Filtering</h1>
 
-<p>An image search (i.e. retrieval) algorithm is used to filter out statistically unlikely matches before the computationally intensive image registration step (i.e., don’t waste cycles trying to match a white part of the target image with an image of the night sky).  Specifically, Fractal Mosaics performs Content-Based Image Retrieval (<a href="http://en.wikipedia.org/wiki/Content-based_image_retrieval">CBIR</a>, similar to Google’s <a href="http://support.google.com/images/answer/1325808?hl=en">search by image</a> feature.  The “search image” (the part of the target image we’re looking to match), is compared to every library image using a similarity metric.  Then only the most similar library images are evaluated using image registration.</p>
+<p>An image search (i.e. retrieval) algorithm is used to filter out statistically unlikely matches before the computationally intensive image registration step (i.e., don’t waste cycles trying to match a white part of the target image with an image of the night sky).  Specifically, Fractal Mosaics performs Content-Based Image Retrieval (<a href="http://en.wikipedia.org/wiki/Content-based_image_retrieval" target="_blank">CBIR</a>, similar to Google’s <a href="http://support.google.com/images/answer/1325808?hl=en" target="_blank">search by image</a> feature.  The “search image” (the part of the target image we’re looking to match), is compared to every library image using a similarity metric.  Then only the most similar library images are evaluated using image registration.</p>
 
 <p>Numerous similarity metrics were evaluated, including histograms, standard deviation, Hu moments, General Fourier Descriptors (GFD), and Fourier Mellin (FM) shape descriptors.  The metrics which performed best were histograms, GFDs, and standard deviation.  These metrics were combined to create a custom similarity metric that slightly outperformed any individual similarity metric.  This metric is currently only used in black and white mode, as I ran out of time to extend it to color.  For color, a relatively simple yet effective similarity metric (histogram distance in the HSV color space) is used.  Implementation details for black and white and color retrieval are given in the sections below.</p>
 
@@ -179,7 +181,7 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <h2>Color</h2>
 
-<p>When creating a color mosaic, the similarity metric is the distance between 3D histograms in the HSV color space.  The code used to implement this (and implementation details) can be found <a href="http://www.mathworks.com/matlabcentral/fileexchange/22030-image-retrieval-query-by-example-demo">here</a>.  Thanks to <a href="http://www.mathworks.com/matlabcentral/fileexchange/authors/30223">Theodoros Giannakopoulos</a> for sharing!</p>
+<p>When creating a color mosaic, the similarity metric is the distance between 3D histograms in the HSV color space.  The code used to implement this (and implementation details) can be found <a href="http://www.mathworks.com/matlabcentral/fileexchange/22030-image-retrieval-query-by-example-demo" target="_blank">here</a>.  Thanks to <a href="http://www.mathworks.com/matlabcentral/fileexchange/authors/30223" target="_blank">Theodoros Giannakopoulos</a> for sharing!</p>
 
 <h1><a id="mosaic_rendering"></a>Mosaic Rendering</h1>
 
