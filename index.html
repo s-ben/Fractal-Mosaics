@@ -139,7 +139,7 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/cc_eq.gif?login=s-ben&amp;token=dac60d00b66a927d84272a207994b202" alt="equation"></p>
 
-<p>where L1 and L2 are the log-polar transformed library and target images, respectively.</p>
+<p>,where L1 and L2 are the log-polar transformed library and target images, respectively.</p>
 
 <h3>Recovering Translation</h3>
 
@@ -155,7 +155,7 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <p>First, we create the lowest resolution version of the target image.  Because 8x8 images were found (in this author’s experiments), to be the lowest resolution images capable of producing meaningful rotation and scale estimates, the lowest resolution target image is composed of 8x8 images, or “tiles”.   For example, Figure 6 shows a target image of Abraham Lincoln at full resolution (3072 x 2606 pixels), and an 8x8 resolution version (24x20 pixels).</p>
 
-<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/Lincoln_8x8_crop_illustrate.png?login=s-ben&amp;token=f402b26d3651f713d3009bd7159b4722" alt="Alt text"></p>
+<p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/Lincoln_high-res-ex2.png?login=s-ben&amp;token=806f46b206c1dacc6de1766cf6e786b0" alt="Alt text"></p>
 
 <p>Note that the low resolution version is three 8x8 “tiles” high.  In other words, the largest possible images in the final mosaic will be approximately 1/3 of the mosaic height.  This is a reasonable assumption, as we’re very unlikely to find a random library image that exactly matches more than a third of the target image.</p>
 
@@ -235,7 +235,7 @@ Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles
 
 <p>The main Fractal Mosaic script (mosaic_registration....m) renders a version of the mosaic as it goes.  This mosaic image is stored in the ‘Render_target’ variable, which is written to ‘fractal_mosaic_eye.jpg’ when the script completes.  If the script is interrupted (Ctrll+C), the mosaic “thus far”, can be viewed from the Matlab command line:</p>
 
-<pre><code>imshow(Render_target)
+<pre><code>&gt;&gt;imshow(Render_target)
 </code></pre>
 
 <p>Alternately, the mosaic can be rendered after the fact using the ‘fractal_mosaic_render.m’ script.  This gives the user the ability to play with different rendering parameters.  Notably, you can set:</p>
