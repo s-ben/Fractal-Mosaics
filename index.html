@@ -36,17 +36,19 @@
 
 <p>The Fractal Mosaic algorithm is a rotation, scale, and translation invariant photomosaic algorithm.  While traditional photomosaics create a larger image out of smaller square images on a rectangular grid, Fractal Mosaics creates a larger image out of rectangular images that can be placed at arbitrary locations, can be scaled to any size, and can be rotated by any angle.  </p>
 
-<p>This is accomplished with a combination of image search (i.e. image retrieval) algorithms and an image registration algorithm developed with NASA funding by George Wolberg Siavash Zokai at the City College of New York (<a href="http://www.researchgate.net/publication/2830220_Robust_Image_Registration_Using_Log-Polar_Transform/file/d912f51116dedc8a30.pdf">pdf</a>).</p>
+<p>This is accomplished with a combination of image search (i.e. image retrieval) algorithms and an image registration algorithm developed with NASA funding by George Wolberg and Siavash Zokai at the City College of New York (<a href="http://www.researchgate.net/publication/2830220_Robust_Image_Registration_Using_Log-Polar_Transform/file/d912f51116dedc8a30.pdf">pdf</a>).</p>
 
 <p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/eye_mosaic_flickr_800pix.jpg?login=s-ben&amp;token=d045d2a20e53d9009700d6829157669f" alt="Alt text">
-Figure 1:  Fractal Mosaic created with graffiti image set (best viewed <a href="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/eye_mosaic_flickr_large.jpg?login=s-ben&amp;token=87b09134a5f66d314547e419299a65b7">large</a></p>
+Figure 1:  Fractal Mosaic created with graffiti image set (best viewed <a href="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/eye_mosaic_flickr_large.jpg?login=s-ben&amp;token=87b09134a5f66d314547e419299a65b7">large</a>)</p>
 
-<p>Figure 2 shows three traditional photomosaics created using the same image set and target image.  </p>
+<p>Figure 2 shows three traditional photomosaics created with <a href="http://www.andreaplanet.com/andreamosaic/">AndreaMosaic</a>using the same image set and target image.  </p>
 
 <p><img src="https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/traditional_mosaic_different_resolutions_800pix.png?login=s-ben&amp;token=5dc052c2ee602a1b7bfd08d525e9d00a" alt="Alt text">
 Figure 2:  Traditional Photomosaics using large tiles (left), medium sized tiles (middle), and small tiles (right)</p>
 
 <p>As can be seen, using large tiles (left), finer details are lost.  Using small tiles (right), we capture target image details, but can’t see individual image detail.  Using medium size tiles (middle), we get a compromise between the two.  Fractal Mosaics aims to create mosaics that capture both target image details and individual image details, in an aesthetically interesting way.</p>
+
+<p>Many people have, of course, created photomosaic variants that accomplish this general goal in different ways.  Too many to list here.  Some of my favorite photomosaic pioneers that I’m aware of: <a href="http://www.flickr.com/photos/tsevis/sets/72157594536252686/">Tsevis</a>, <a href="http://www.flickr.com/photos/village9991/sets/72157603327275992/">Village9991</a>, and <a href="http://www.flickr.com/photos/stellame/">StellaMe</a>.  If I’m unaware of your work, contact me!</p>
 
 <p>By allowing for arbitrary placement, rotation, and scaling of the “library images” (images making up the mosaic), there are an many more possible matches to evaluate.  This allows for larger, often more aesthetically interesting matches than possible with traditional photomosaics.  However, searching such a large solution space on a personal computer presents a challenging problem.  This “paper” presents my solution to this problem (two years worth of unpaid work...).  It explains the algorithm in depth for those wishing to hack the Matlab code.  It should also aid those using the code to create mosaics, as understanding how the algorithm works will help tweak parameters that shape mosaic output.</p>
 
