@@ -22,7 +22,7 @@ Fractal Mosaics is implemented in Matlab.  You’ll need a copy of Matlab with t
 
 Your mosaic is now rendering.
 
-Warning:  it takes a long time to render a mosaic (~6 to 8 hrs on my macbook pro).  If you want to optimize it, please do ;)
+WARNING:  it takes a long time to render a mosaic (~6 to 8 hrs on my macbook pro).  If you want to optimize it, please do ;)
 
 The demo example creates a black and white mosaic.  This is because color takes ~3X as long.  To create a color mosaic, download the color image set, and set Fractal Mosaics to color mode (see the Variables page for info on this).
 
