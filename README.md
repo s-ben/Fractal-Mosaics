@@ -33,3 +33,4 @@ How to create your own mosaic: step-by-step instructions
 Variables:  how to use the 10 variables Fractal Mosaics uses to tweak mosaic output
 Mosaics:  Flickr page containing finished mosaics
 
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/80d211511c492cf9dce9dd9841acf603 "githalytics.com")](http://githalytics.com/s-ben/Fractal-Mosaics)
