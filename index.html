@@ -42,13 +42,12 @@
         <div class="download-bar">
         <div class="inner">
           <a href="https://github.com/s-ben/Fractal-Mosaics/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/s-ben/Fractal-Mosaics/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/s-ben/Fractal-Mosaics/blob/gh-pages/code/FractalMosaics_package.zip?raw=true" class="download-button zip"><span>Download</span></a>
           <a href="https://github.com/s-ben/Fractal-Mosaics" class="code">View Fractal-mosaics on GitHub</a>
         </div>
         <span class="blc"></span><span class="trc"></span>
         </div>
         <article class="markdown-body">
-          <h1>[UNDER CONSTRUCTION]</h1>
           <h1>Abstract</h1>
 
 <p>The Fractal Mosaic algorithm is a rotation, scale, and translation invariant photomosaic algorithm.  While traditional photomosaics create a larger image out of smaller square images on a rectangular grid, Fractal Mosaics creates a larger image out of rectangular images that can be placed at arbitrary locations, can be scaled to any size, and can be rotated by any angle.  </p>
@@ -66,7 +65,7 @@
 
 <p>As can be seen, using large tiles (left), finer details are lost.  Using small tiles (right), we capture target image details, but can’t see individual image detail.  Using medium size tiles (middle), we get a compromise between the two.  Fractal Mosaics aims to create mosaics that capture both target image details and individual image details, in an aesthetically interesting way.</p>
 
-<p>Many people have, of course, created photomosaic variants with similar aims.  Too many to list here.  Some of my favorite photomosaic pioneers that I’m aware of: <a href="http://www.flickr.com/photos/tsevis/sets/72157594536252686/" target="_blank">Tsevis</a>, <a href="http://www.flickr.com/photos/village9991/sets/72157603327275992/" target="_blank">Village9991</a>, and <a href="http://www.flickr.com/photos/stellame/" target="_blank">StellaMe</a>.  If I’m unaware of your work, contact me!</p>
+<p>Many people have, of course, created photomosaic variants with similar aims.  Too many to list here.  Some of my favorite photomosaic pioneers that I’m aware of: <a href="http://www.flickr.com/photos/tsevis/sets/72157594536252686/" target="_blank">Tsevis</a>, <a href="http://www.flickr.com/photos/village9991/sets/72157603327275992/" target="_blank">Village9991</a>, and <a href="http://www.flickr.com/photos/stellame/" target="_blank">StellaMe</a>.  If I’m unaware of your work, <a href="http://www.sethbenton.com/sb_contact.html">contact me</a>!</p>
 
 <p>By allowing for arbitrary placement, rotation, and scaling of the “library images” (images making up the mosaic), there are an many more possible matches to evaluate.  This allows for larger, often more aesthetically interesting matches than possible with traditional photomosaics.  However, searching such a large solution space on a personal computer presents a challenging problem.  This “paper” presents my solution to this problem (two years worth of unpaid work...).  It explains the algorithm in depth for those wishing to hack the Matlab code.  It should also aid those using the code to create mosaics, as understanding how the algorithm works will help tweak parameters that shape mosaic output.</p>
 
@@ -171,16 +170,16 @@
 
 <h3>Recovering Translation</h3>
 
-<p>As mentioned previously, Log-polar registration does not recover translation.  It assumes the two images presented to it line up, except for rotation and scale differences.  To recover translation, the algorithm must be applied to every location (pixel).  The translation resulting in the best match (i.e. lowest rms error) is then chosen as the translation estimate.  This makes log-polar registration fairly computationally expensive compared to other registration techniques.</p>
+<p>As mentioned previously, Log-polar registration does not recover translation.  It assumes the two images presented to it line up, except for rotation and scale differences.  To recover translation, the algorithm must be applied to every location (pixel).  The translation resulting in the best match (i.e. lowest rms error) is then chosen as the translation estimate.  </p>
 
-<p>To reduce computation, the authors of Log-polar registration implement a coarse-to-fine multi-resolution framework, whereby estimates computed in lower resolution images are used as initial guesses in higher resolution images.  </p>
-<p>The video below shows the algorithm at work evaluating library images. As can be seen, most library images aren't evaluated beyond the lowest resolution (8x8). This is because the rms error of the rotated and scaled image after image registration is not below an empirically determined threshold. For details on error thresholds and other implementation details, see the <a href="log_polar_registration_framework.html" target="_blank">Image Registration Algorithm Steps</a> page.</p>
+<p>To reduce computation, the authors of Log-polar registration implement a multi-resolution framework, whereby estimates computed in lower resolution images are used as initial guesses in higher resolution images. At each resolution, rotation and scale estimates are computed for every location. The location(s) that result in an rms error below a threshold are sent to the next higher resolution for refining.</p>
+<p>The video below shows the algorithm at work evaluating library images. As can be seen, most library images aren't evaluated beyond the lowest resolution (8x8). This is because most library images, even when rotated and scaled to best match the target image, aren't good enough matches to evaluate at higher resolutions. For details on error thresholds and other implementation details, see the <a href="log_polar_registration_framework.html" target="_blank">Image Registration Algorithm Steps</a> page.</p>
 <p style="text-align:center"><a href="http://www.youtube.com/watch?v=oGCi5TPagJo" target="_blank"><img src="images/video_screenshot_30rms_500pix.png" width="500" height="447"></a></p>
 <p>&nbsp;</p>
 
 <h1><a id="image_search"></a>Image Search (Retrieval) Filtering</h1>
 
-<p>An image search (i.e. retrieval) algorithm is used to filter out statistically unlikely matches before the computationally intensive image registration step (i.e., don’t waste cycles trying to match a white part of the target image with an image of the night sky).  Specifically, Fractal Mosaics performs Content-Based Image Retrieval (<a href="http://en.wikipedia.org/wiki/Content-based_image_retrieval" target="_blank">CBIR</a>, similar to Google’s <a href="http://support.google.com/images/answer/1325808?hl=en" target="_blank">search by image</a> feature.  The “search image” (the part of the target image we’re looking to match), is compared to every library image using a similarity metric.  Then only the most similar library images are evaluated using image registration.</p>
+<p>An image search (i.e. retrieval) algorithm is used to filter out statistically unlikely matches before the computationally intensive image registration step (i.e., don’t waste cycles trying to match a white part of the target image with an image of the night sky).  Specifically, Fractal Mosaics performs Content-Based Image Retrieval (<a href="http://en.wikipedia.org/wiki/Content-based_image_retrieval" target="_blank">CBIR</a>), similar to Google’s <a href="http://support.google.com/images/answer/1325808?hl=en" target="_blank">search by image</a> feature.  The “search image” (the part of the target image we’re looking to match), is compared to every library image using a similarity metric.  Then only the most similar library images are evaluated using image registration.</p>
 
 <p>Numerous similarity metrics were evaluated, including histograms, standard deviation, Hu moments, General Fourier Descriptors (GFD), and Fourier Mellin (FM) shape descriptors.  The metrics which performed best were histograms, GFDs, and standard deviation.  These metrics were combined to create a custom similarity metric that slightly outperformed any individual similarity metric.  This metric is currently only used in black and white mode, as I ran out of time to extend it to color.  For color, a relatively simple yet effective similarity metric (histogram distance in the HSV color space) is used.  Implementation details for black and white and color retrieval are given in the sections below.</p>
 <h2>Black and White</h2>
