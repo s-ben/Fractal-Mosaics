@@ -5,7 +5,6 @@ Fractal Mosaics is a rotation, scale, and translation invariant photomosaic algo
 
 ![Alt text](https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/eye_mosaic_flickr_350pix.jpg?login=s-ben&token=08d50c08c1ba3bc2c568fccfa3b77361)
 
-The code provided is free to use for non-commercial or commercial uses.  If you create something with the code, let me know!  If you wanna pay me, let me know!
 
 # Prerequisites
 
@@ -32,5 +31,10 @@ Fractal Mosaic “paper”:  academic-style paper explaining how the algorithm w
 How to create your own mosaic: step-by-step instructions
 Variables:  how to use the 10 variables Fractal Mosaics uses to tweak mosaic output
 Mosaics:  Flickr page containing finished mosaics
+
+# Licencing
+
+Fractal Mosaics is licensed under the GNU General Public License ([GPL](http://www.gnu.org/licenses/gpl.txt)).  If you wish to use Fractal Mosaics for proprietary software, let's talk! (seth.benton@gmail.com)
+
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/80d211511c492cf9dce9dd9841acf603 "githalytics.com")](http://githalytics.com/s-ben/Fractal-Mosaics)
