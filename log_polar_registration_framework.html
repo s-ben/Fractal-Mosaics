@@ -84,7 +84,7 @@
   
   at 8x8 resolution</p>
   <li style="font-weight:bold;">Input target tile I<span style="font-size:xx-small;">T</span> into image search module.</li>
-  <p>The image search module returns a list of library images most statistically similar to the target tile.  Details on this found in the Image Search section of the <a href="index.html" target="_blank">main Fractal Mosaics paper</a>.  The number of images returned is set via the ‘num_lib_test_pix_v’ parameter, as explained in the Variables page.</p>
+  <p>The image search module returns a list of library images most statistically similar to the target tile.  Details on this found in the Image Search section of the <a href="index.html" target="_blank">main Fractal Mosaics paper</a>.  The number of images returned is set via the ‘num_lib_test_pix_v’ parameter, as explained in the <a href="https://github.com/s-ben/Fractal-Mosaics/wiki/Variables">Variables page</a>.</p>
   <li style="font-weight:bold;"><p>For each library image returned by Step 2:</p>
     <ol>
       <li>Resize library image I<span style="font-size:xx-small;">L</span> being evaluated to 8x8 pixels</li>
@@ -125,7 +125,7 @@
 
 <h2>Error Thresholds</h2>
 
-<p>The error thresholds that determine if a library image gets passed to the next resolution are a function of level and resolution.  These were determined empirically.  At lower resolutions, the threshold is higher.  This is because the rms error can fluctuate significantly between 8x8 and 128x128, and we don’t want to prematurely filter out good matches.  All thresholds are calculated relative to a baseline value,  stored in the ‘bias_floor’ variable. As explained in the Variables page, this is the main way to control the “resolution” of the overall mosaic.  Raise the ‘bias_floor’, and Fractal Mosaics will permit larger matches, which may not match the target image as well.  Lowering ‘bias_floor’ will create a mosaic with smaller images that more closely match the target image.</p>
+<p>The error thresholds that determine if a library image gets passed to the next resolution are a function of level and resolution.  These were determined empirically.  At lower resolutions, the threshold is higher.  This is because the rms error can fluctuate significantly between 8x8 and 128x128, and we don’t want to prematurely filter out good matches.  All thresholds are calculated relative to a baseline value,  stored in the ‘bias_floor’ variable. As explained in the<a href="https://github.com/s-ben/Fractal-Mosaics/wiki/Variables"> Variables page</a>, this is the main way to control the “resolution” of the overall mosaic.  Raise the ‘bias_floor’, and Fractal Mosaics will permit larger matches, which may not match the target image as well.  Lowering ‘bias_floor’ will create a mosaic with smaller images that more closely match the target image.</p>
         </article>
       </div>
     </div>
