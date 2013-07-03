@@ -16,7 +16,7 @@ Fractal Mosaics is implemented in Matlab.  You’ll need a copy of Matlab with t
 
 # Getting Started
 
-1.  Download the demo example ([zip](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.zip), [tgz](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.tgz)).  This example has all the code you need.  Simply modify the example to create your own mosaics.
+1.  Download the demo example ([zip](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.zip), [tgz](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.tgz)).  
 2.	Download the [example image set](https://docs.google.com/file/d/0B_2ApIVBvXm1RlFjTmVwUXRIcms/edit?usp=sharing) (706 MB database of greyscale images of San Francisco).
 3.	Unpack the zip file containing the example image set and copy its contents into the /library_images folder in the demo example.
 4.	Navigate to the /m-files directory 
