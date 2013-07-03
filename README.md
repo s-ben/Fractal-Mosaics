@@ -19,8 +19,8 @@ Fractal Mosaics is implemented in Matlab.  You’ll need a copy of Matlab with t
 1.  Download the demo example ([zip](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.zip), [tgz](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.tgz)).  
 2.	Download the [example image set](https://docs.google.com/file/d/0B_2ApIVBvXm1RlFjTmVwUXRIcms/edit?usp=sharing) (9.1 GB database of greyscale images of graffiti).
 3.	Unpack the zip file containing the example image set and copy its contents into the /library_images folder in the demo example.
-4.	Navigate to the /m-files directory 
-5.	Run ‘fractal_mosaic.m’ 
+4.	Navigate to the /m-files directory. 
+5.	Run ‘fractal_mosaic.m’. 
 
 Your mosaic is now rendering.
 
