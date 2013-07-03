@@ -30,9 +30,9 @@ The demo example creates a black and white mosaic.  This is because color takes 
 
 # Documentation
 
-* [Fractal Mosaic “paper”](http://s-ben.github.io/Fractal-Mosaics/):  academic-style paper explaining how the algorithm works
+* [Fractal Mosaic “paper”](http://s-ben.github.io/Fractal-Mosaics/):  academic-style paper explaining how the algorithm works.
 * [Wiki](https://github.com/s-ben/Fractal-Mosaics/wiki): details on how to create your own mosaic.
-* [Gallery](http://www.flickr.com/photos/travelingseth/sets/72157623789223762/):  Flickr page showing finished mosaics
+* [Gallery](http://www.flickr.com/photos/travelingseth/sets/72157623789223762/):  Flickr page showing finished mosaics.
 
 # Licencing
 
