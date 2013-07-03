@@ -11,7 +11,7 @@ For a detailed description of the algorithm, see my adademic-style "[paper](http
 
 # Prerequisites
 
-Fractal Mosaics is implemented in Matlab.  You’ll need a copy of Matlab with the Signal Processing toolbox installed (any version should work and most should come with the Signal Processing toolbox).
+Fractal Mosaics is implemented in Matlab.  You’ll need a copy of Matlab with the Signal Processing toolbox - most versions should have the Signal Processing toolbox.
 
 
 # Getting Started
