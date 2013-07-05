@@ -26,7 +26,7 @@ Your mosaic is now rendering.
 
 WARNING:  it takes a long time to render a mosaic (~10.5 hrs on my macbook pro).  If you want to optimize it, please do ;)
 
-The demo example creates a black and white mosaic.  This is because color takes ~3X as long.  To create a color mosaic, download the [color image set](https://docs.google.com/file/d/0B_2ApIVBv Xm1ckhjX3RibVVPdkk/edit?usp=sharing) (COMING SOON), and set Fractal Mosaics to color mode (see the [Variables](https://github.com/s-ben/Fractal-Mosaics/wiki/Variables) page for info on this).
+The demo example creates a black and white mosaic.  This is because color takes ~3X as long.  To create a color mosaic, download the color image set and set Fractal Mosaics to color mode (see the [Variables](https://github.com/s-ben/Fractal-Mosaics/wiki/Variables) page for info on this).  Due to file size limits in Google Drive, the color image set is divided into two zip files ([image set 1](https://docs.google.com/file/d/0B3M2Bu_2k-QSSnhSVzNWRERtenc/edit?usp=sharing), [image set 2](https://docs.google.com/file/d/0B3M2Bu_2k-QSTkxxbEVGay1Gcjg/edit?usp=sharing)).
 
 # Documentation
 
