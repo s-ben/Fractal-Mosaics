@@ -16,17 +16,18 @@ Fractal Mosaics is implemented in Matlab.  You’ll need a copy of Matlab with t
 
 # Getting Started
 
-1.  Download the demo example ([zip](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.zip), [tgz](https://github.com/s-ben/Fractal-Mosaics/raw/gh-pages/code/fractal_mosaics.tgz)).  
-2.	Download the [example image set](https://docs.google.com/file/d/0B_2ApIVBvXm1Y0VMVTVqNUhCaVk/edit?usp=sharing) (9.1 GB database of greyscale images of graffiti).
-3.	Unpack the zip file containing the example image set and copy its contents into the /library_images folder in the demo example.
-4.	Navigate to the /m-files directory. 
-5.	Run ‘fractal_mosaic.m’. 
+1.  Clone the Fractal-Mosaics repository (or, if you don't have git, just download the [zip file](https://github.com/s-ben/Fractal-Mosaics/archive/gh-pages.zip)).
+2.  Navigate to the /code folder and unpack the 'FractalMosaics_package' zip or tar.gz file.  This contains the demo example.
+3.	Download the [example image set](https://docs.google.com/file/d/0B_2ApIVBvXm1Y0VMVTVqNUhCaVk/edit?usp=sharing) (9.1 GB database of greyscale images of graffiti).
+4.	Unpack the zip file containing the example image set and copy its contents into the /library_images folder in the demo example.
+5.	Navigate to the /m-files directory in the demo example. 
+6.	Run ‘fractal_mosaic.m’. 
 
 Your mosaic is now rendering.
 
 WARNING:  it takes a long time to render a mosaic (~10.5 hrs on my macbook pro).  If you want to optimize it, please do ;)
 
-The demo example creates a black and white mosaic.  This is because color takes ~3X as long.  To create a color mosaic, download the color image set and set Fractal Mosaics to color mode (see the [Variables](https://github.com/s-ben/Fractal-Mosaics/wiki/Variables) page for info on this).  Due to file size limits in Google Drive, the color image set is divided into two zip files ([image set 1](https://docs.google.com/file/d/0B3M2Bu_2k-QSSnhSVzNWRERtenc/edit?usp=sharing), [image set 2](https://docs.google.com/file/d/0B3M2Bu_2k-QSTkxxbEVGay1Gcjg/edit?usp=sharing)).
+The demo example creates a black and white mosaic.  This is because color takes ~3X as long.  To create a color mosaic, download the color image set and set Fractal Mosaics to color mode (see the [Variables](https://github.com/s-ben/Fractal-Mosaics/wiki/Variables) page for how to do this).  Due to file size limits in Google Drive, the color image set is divided into two zip files ([image set 1](https://docs.google.com/file/d/0B3M2Bu_2k-QSSnhSVzNWRERtenc/edit?usp=sharing), [image set 2](https://docs.google.com/file/d/0B3M2Bu_2k-QSTkxxbEVGay1Gcjg/edit?usp=sharing)).
 
 # Documentation
 
