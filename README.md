@@ -35,7 +35,7 @@ The demo example creates a black and white mosaic.  This is because color takes 
 * [Wiki](https://github.com/s-ben/Fractal-Mosaics/wiki): details on how to create your own mosaic.
 * [Gallery](http://www.flickr.com/photos/travelingseth/sets/72157623789223762/):  Flickr page showing finished mosaics.
 
-# Licencing
+# Licencing 
 
 Fractal Mosaics is licensed under the GNU General Public License ([GPL](http://www.gnu.org/licenses/gpl.txt)).  Some functions used in Fractal Mosaics are from the Matlab File Exchange and use the [BSD license](http://opensource.org/licenses/bsd-license.php).  This license is "permissive" (can be used for any purpose, commercial or non). If you wish to use Fractal Mosaics for proprietary software, let's talk! (seth.benton@gmail.com)
 
