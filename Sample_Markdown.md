@@ -1,7 +1,6 @@
-
 # Developer Guide #
 
-Blah blah blah blah blah blah blah blah blah blah blah bl
+Blah blah blah blah blah blah blah blah blah blah blah blahahahahahahahaha
 
 
 # About This Guide
