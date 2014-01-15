@@ -5,7 +5,7 @@ Fractal Mosaics is a rotation, scale, and translation invariant photomosaic algo
 
 The figure below shows a Fractal Mosaic and traditional photomosaic made using the same target image and image set.
 
-![Photomosaic New Algorithm Fractal Eye](https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/fractal_trad_compare.png?login=s-ben&token=174f9368670265a272b500a411d902da)
+![Photomosaic New Algorithm Fractal Eye](https://raw.github.com/s-ben/Fractal-Mosaics/gh-pages/images/fractal_trad_compare.png)
 
 For a detailed description of the algorithm, see my adademic-style "[paper](http://s-ben.github.io/Fractal-Mosaics/)" on it and documentation below.
 
